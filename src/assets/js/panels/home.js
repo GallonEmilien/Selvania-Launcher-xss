@@ -95,17 +95,9 @@ class Home {
     socialLick() {
         document.querySelectorAll('.social-block').forEach(e => {
             e.addEventListener('click', () => {
-                const rawUrl = e.dataset.url;
-                try {
-                    const parsedUrl = new URL(rawUrl);
-                    if (parsedUrl.protocol === 'https:') {
-                        shell.openExternal(parsedUrl.href);
-                    } else {
-                        console.error(`Protocole non autorisé`);
-                    }
-                } catch (e) {
-                    console.error("URL invalide ou malformée");
-                }
+                const url = e.dataset.url;
+                if ('https:' !== new URL(url).protocol) return;
+                shell.openExternal(url)
             })
         })
     }
